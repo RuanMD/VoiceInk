@@ -72,6 +72,7 @@ private extension ViewType {
         .transcribeAudio,
         .history,
         .dictionary,
+        .affirmations,
         .models,
         .audio,
     ]
@@ -97,6 +98,7 @@ private extension ViewType {
         case .modes: return "sparkles.square.fill.on.square"
         case .audio: return "mic.fill"
         case .dictionary: return "text.book.closed.fill"
+        case .affirmations: return "sparkles"
         case .settings: return "gearshape.fill"
         case .license: return "checkmark.seal.fill"
         }
@@ -114,6 +116,8 @@ private extension ViewType {
             return .init(background: AppTheme.Sidebar.fallback)
         case .dictionary:
             return .init(background: AppTheme.Sidebar.dictionary)
+        case .affirmations:
+            return .init(background: AppTheme.Sidebar.fallback)
         case .history:
             return .init(background: AppTheme.Sidebar.audio)
         case .transcribeAudio:

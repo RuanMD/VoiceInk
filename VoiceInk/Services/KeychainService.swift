@@ -194,6 +194,16 @@ final class KeychainService {
 
     /// Creates a base Keychain query.
     private func baseQuery(forKey key: String, syncable: Bool) -> [String: Any] {
+        #if LOCAL_BUILD
+        // Build ad-hoc não tem Team ID nem entitlement de iCloud Keychain.
+        // Sem essa exceção, iCloud sync + kSecUseDataProtectionKeychain retornam
+        // errSecMissingEntitlement (-34018) e nenhuma API key é salva.
+        return [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: key,
+        ]
+        #else
         var query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service,
@@ -206,5 +216,6 @@ final class KeychainService {
         }
 
         return query
+        #endif
     }
 }

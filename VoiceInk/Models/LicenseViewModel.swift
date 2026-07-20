@@ -18,7 +18,7 @@ final class LicenseViewModel: ObservableObject {
 
     static let shared = LicenseViewModel()
 
-    @Published private(set) var licenseState: LicenseState = .unlicensed
+    @Published private(set) var licenseState: LicenseState = .licensed
     @Published private(set) var licenseKey = ""
     @Published var isValidating = false
     @Published private(set) var isDeactivating = false
@@ -146,12 +146,7 @@ final class LicenseViewModel: ObservableObject {
     }
 
     var canUseApp: Bool {
-        switch licenseState {
-        case .licensed, .trial:
-            return true
-        case .unlicensed, .trialExpired:
-            return false
-        }
+        return true
     }
 
     var usageRestrictionMessage: String? {
