@@ -94,6 +94,13 @@ struct VoiceInkApp: App {
         container = resolvedContainer
         DictionaryService.cleanUpDictionaryContent(context: resolvedContainer.mainContext, source: "launch")
 
+        // Local dictionary API (127.0.0.1 + token) used by external automations.
+        Task { @MainActor in
+            let server = DictionaryAPIServer(context: resolvedContainer.mainContext)
+            DictionaryAPIServer.shared = server
+            server.start()
+        }
+
         // Initialize services with proper sharing of instances
         let aiService = AIService()
         _aiService = StateObject(wrappedValue: aiService)
